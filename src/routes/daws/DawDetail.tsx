@@ -2,13 +2,13 @@ import { useParams } from "react-router-dom";
 import daws from "../../assets/daws.json";
 
 export const DawDetail = () => {
-  const { id } = useParams<{ id: string }>();
-  console.log(id);
-  if (!id) {
+  const { dawId: dawId } = useParams<{ dawId: string }>();
+  console.log(dawId);
+  if (!dawId) {
     return <div>Invalid Daw ID</div>;
   }
 
-  const daw = daws.find((daw) => daw.id === parseInt(id));
+  const daw = daws.find((daw) => daw.id === parseInt(dawId));
 
   if (!daw) {
     return <div>Daw not found</div>;
