@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "name": "Ableton Live",
+    "description": "Ableton Live is a digital audio workstation for macOS and Windows.",
+    "website": "https://www.ableton.com/en/live/",
+    "image": "https://www.ableton.com/static/images/products/live/live-main-device-2x.png",
+    "features": [
+      "Session view for live performance",
+      "Powerful MIDI sequencing",
+      "Built-in audio effects and instruments"
+    ],
+    "price": "$99 - $749",
+    "famousSongs": [
+      "Strobe by Deadmau5",
+      "Midnight City by M83",
+      "Get Lucky by Daft Punk"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Logic Pro X",
+    "description": "Logic Pro X is a digital audio workstation for macOS.",
+    "website": "https://www.apple.com/logic-pro/",
+    "image": "https://www.apple.com/v/logic-pro/home/ae/images/overview/hero__dvs4v8sm4q6y_large.jpg",
+    "features": [
+      "Professional mixing and mastering tools",
+      "Large library of virtual instruments and effects",
+      "Support for third-party plugins"
+    ],
+    "price": "$199.99",
+    "famousSongs": [
+      "Uptown Funk by Mark Ronson ft. Bruno Mars",
+      "Bad Guy by Billie Eilish",
+      "Blinding Lights by The Weeknd"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "FL Studio",
+    "description": "FL Studio is a digital audio workstation for Windows.",
+    "website": "https://www.image-line.com/flstudio/",
+    "image": "https://www.image-line.com/wp-content/uploads/2021/05/FL-Studio-20th-Anniversary-Logo-1024x1024.png",
+    "features": [
+      "Step sequencer for easy beat creation",
+      "Support for multiple MIDI controllers",
+      "Flexible audio routing and mixing"
+    ],
+    "price": "$99 - $899",
+    "famousSongs": [
+      "Mask Off by Future",
+      "Lucid Dreams by Juice WRLD",
+      "Sicko Mode by Travis Scott ft. Drake"
+    ]
+  }
+]
