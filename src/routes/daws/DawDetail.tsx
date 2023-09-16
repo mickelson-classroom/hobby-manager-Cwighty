@@ -1,9 +1,13 @@
+import { useContext } from "react";
 import { useParams } from "react-router-dom";
-import daws from "../../assets/daws.json";
+import { DawContextType } from "../../@types/daw";
+import { DawContext } from "../../context/dawContext";
+import { AddFeatureOrSong } from "./AddFeatureOrSong";
 
 export const DawDetail = () => {
   const { dawId: dawId } = useParams<{ dawId: string }>();
-  console.log(dawId);
+  const { daws, updateDaw } = useContext(DawContext) as DawContextType;
+
   if (!dawId) {
     return <div>Invalid Daw ID</div>;
   }
@@ -50,6 +54,7 @@ export const DawDetail = () => {
           </ul>
         </div>
       </div>
+      <AddFeatureOrSong id={daw.id} />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Navbar } from "./shared/navbar";
 import { ErrorBoundary } from "./components/ErrorBoundry";
+import { DawContext, DawProvider } from "./context/dawContext";
 
 const App = () => {
   return (
@@ -8,7 +9,9 @@ const App = () => {
       <Navbar />
       <div className="container">
         <ErrorBoundary>
-          <Outlet />
+          <DawProvider>
+            <Outlet />
+          </DawProvider>
         </ErrorBoundary>
       </div>
     </>
