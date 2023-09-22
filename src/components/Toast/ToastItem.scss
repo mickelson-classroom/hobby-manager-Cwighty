@@ -1,0 +1,8 @@
+.toast-item {
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(120%);
+}
+
+.toast-item.show {
+  transform: translateX(0);
+}

@@ -8,6 +8,8 @@ import App from "./App";
 import ReactDOM from "react-dom";
 import { DawDetail } from "./routes/daws/DawDetail";
 import { DawsList } from "./routes/daws/DawsList";
+import { ToastsDemo } from "./routes/toastsDemo/ToastsDemo";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const router = createBrowserRouter([
   {
@@ -23,10 +25,8 @@ const router = createBrowserRouter([
         path: "daws/",
         element: <DawsList />,
       },
-      {
-        path: "daw/:dawId",
-        element: <DawDetail />,
-      },
+      { path: "daw/:dawId", element: <DawDetail /> },
+      { path: "toasts", element: <ToastsDemo /> },
     ],
   },
 ]);
