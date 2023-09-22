@@ -3,9 +3,8 @@ import { ToastContext } from "../../context/toastContext";
 import { ToastContextType } from "../../@types/toast";
 
 export const ToastsDemo = () => {
-  const { toasts, addToast, removeToast, removeAllToasts } = useContext(
-    ToastContext
-  ) as ToastContextType;
+  const { toasts, addToast, removeToast, removeAllToasts, add50Toasts } =
+    useContext(ToastContext) as ToastContextType;
   const [autoClose, setAutoClose] = useState(true);
   const [autoCloseDuration, setAutoCloseDuration] = useState(5);
   const [position, setPosition] = useState("bottom-right");
@@ -26,24 +25,27 @@ export const ToastsDemo = () => {
 
       <div>
         <button
-          className="btn btn-primary"
+          className="btn btn-primary m-2"
           onClick={() => showToast("Yay!", "success")}
         >
           Show Success Toast
         </button>
         <button
-          className="btn btn-danger"
+          className="btn btn-danger m-2"
           onClick={() => showToast("Booo!", "danger")}
         >
           Show Error Toast
         </button>
         <button
-          className="btn btn-warning"
+          className="btn btn-warning m-2"
           onClick={() => showToast("Meh!", "warning")}
         >
           Show Warning Toast
         </button>
-        <button className="btn btn-secondary" onClick={removeAllToasts}>
+        <button className="btn btn-info m-2" onClick={() => add50Toasts()}>
+          Show 50 Toasts
+        </button>
+        <button className="btn btn-secondary m-2" onClick={removeAllToasts}>
           Clear Toasts
         </button>
       </div>

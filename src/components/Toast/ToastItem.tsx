@@ -1,6 +1,6 @@
+import "./ToastItem.scss";
 import { useEffect, useState } from "react";
 import { ToastItemProps } from "../../@types/toast";
-import "./ToastItem.scss";
 
 export const ToastItem: React.FC<ToastItemProps> = ({
   message,
@@ -25,8 +25,10 @@ export const ToastItem: React.FC<ToastItemProps> = ({
   const handleDismiss = () => {
     setShow(false);
     setTimeout(() => {
-      if (onDismiss) onDismiss();
-    }, 500); // Delay of 500 milliseconds
+      if (onDismiss) {
+        onDismiss();
+      }
+    }, 500);
   };
 
   return (
@@ -41,10 +43,8 @@ export const ToastItem: React.FC<ToastItemProps> = ({
         <div className="d-flex align-items-center">
           <i className={`bi ${toastIcon} text-${type}`}></i>
         </div>
-        <button className="btn btn-close" onClick={handleDismiss}></button>
-      </div>
-      <div className="card-body">
         <p className="mb-0 ms-2">{message}</p>
+        <button className="btn btn-close" onClick={handleDismiss}></button>
       </div>
     </div>
   );

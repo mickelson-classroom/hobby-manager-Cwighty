@@ -18,6 +18,23 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
     }, 5000);
   };
 
+  const add50Toasts = () => {
+    const newToasts: ToastItemProps[] = [];
+    for (let i = 0; i < 50; i++) {
+      const id = Date.now() + i;
+      const toast = {
+        id: id,
+        message: `Toast ${i}`,
+        type: "success",
+      };
+      newToasts.push(toast);
+      setTimeout(() => {
+        removeToast(id);
+      }, 5000);
+    }
+    setToasts((toasts) => [...toasts, ...newToasts]);
+  };
+
   const removeToast = (id: number) => {
     setToasts((toasts) => toasts.filter((toast) => toast.id !== id));
   };
@@ -28,7 +45,7 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <ToastContext.Provider
-      value={{ toasts, addToast, removeToast, removeAllToasts }}
+      value={{ toasts, addToast, removeToast, removeAllToasts, add50Toasts }}
     >
       {children}
     </ToastContext.Provider>

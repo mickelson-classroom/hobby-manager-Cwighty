@@ -19,7 +19,8 @@
     "react-router-dom": "^6.16.0",
     "sass": "^1.67.0",
     "sort-by": "^1.2.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "webpack": "^5.88.2"
   },
   "devDependencies": {
     "@types/bootstrap": "^5.2.7",
