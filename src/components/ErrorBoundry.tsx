@@ -1,4 +1,5 @@
 import React, { Component, useContext } from "react";
+import { ErrorPage } from "./ErrorPage";
 
 interface Props {
   children: React.ReactNode;
@@ -22,16 +23,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
-      return (
-        <div className="d-flex flex-column justify-content-center align-items-center vh-100">
-          <h1>Something went wrong. So soory bout that!</h1>
-          <h2>Here are the details:</h2>
-          <div className="border border-danger p-3">
-            <p className="text-info">{this.state.error.message}</p>
-            <p className="text-info">{this.state.error.stack}</p>
-          </div>
-        </div>
-      );
+      return <ErrorPage error={this.state.error} />;
     }
 
     return this.props.children;
