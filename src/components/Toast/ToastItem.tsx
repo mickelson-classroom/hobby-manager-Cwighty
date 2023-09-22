@@ -5,7 +5,8 @@ import { ToastItemProps } from "../../@types/toast";
 export const ToastItem: React.FC<ToastItemProps> = ({
   message,
   type,
-  onDismiss,
+  dismiss,
+  dismissed,
 }) => {
   const iconMap: { [key in ToastItemProps["type"]]: string } = {
     success: "bi-check-circle-fill",
@@ -22,19 +23,10 @@ export const ToastItem: React.FC<ToastItemProps> = ({
     }, 50);
   }, []);
 
-  const handleDismiss = () => {
-    setShow(false);
-    setTimeout(() => {
-      if (onDismiss) {
-        onDismiss();
-      }
-    }, 500);
-  };
-
   return (
     <div
       className={`card border-${type} my-2 shadow-lg toast-item ${
-        show ? " show " : ""
+        show && !dismissed ? " show " : ""
       }}`}
       style={{ width: "300px" }}
       role="alert"
@@ -44,7 +36,7 @@ export const ToastItem: React.FC<ToastItemProps> = ({
           <i className={`bi ${toastIcon} text-${type}`}></i>
         </div>
         <p className="mb-0 ms-2">{message}</p>
-        <button className="btn btn-close" onClick={handleDismiss}></button>
+        <button className="btn btn-close" onClick={dismiss}></button>
       </div>
     </div>
   );

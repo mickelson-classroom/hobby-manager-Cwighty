@@ -5,6 +5,7 @@ export const ToastContext = createContext<ToastContextType | null>(null);
 
 export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
   const [toasts, setToasts] = useState<ToastItemProps[]>([]);
+  const [dissmissedToasts, setDissmissedToasts] = useState<number[]>([]);
 
   const addToast = (newToast: ToastItemProps) => {
     const id = Date.now();
@@ -36,7 +37,13 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const removeToast = (id: number) => {
-    setToasts((toasts) => toasts.filter((toast) => toast.id !== id));
+    setDissmissedToasts((dissmissedToasts) => [...dissmissedToasts, id]);
+    setTimeout(() => {
+      setToasts((toasts) => toasts.filter((toast) => toast.id !== id));
+      setDissmissedToasts((dissmissedToasts) =>
+        dissmissedToasts.filter((dissmissedToast) => dissmissedToast !== id)
+      );
+    }, 500);
   };
 
   const removeAllToasts = () => {
@@ -45,7 +52,7 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <ToastContext.Provider
-      value={{ toasts, addToast, removeToast, removeAllToasts, add50Toasts }}
+      value={{ toasts, addToast, removeToast, removeAllToasts, add50Toasts, dissmissedToasts }}
     >
       {children}
     </ToastContext.Provider>

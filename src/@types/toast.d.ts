@@ -2,7 +2,8 @@ export type ToastItemProps = {
   id: number;
   message: string;
   type: string;
-  onDismiss?: () => void;
+  dismiss?: () => void;
+  dismissed?: boolean;
 };
 
 export type ToastContextType = {
@@ -11,4 +12,5 @@ export type ToastContextType = {
   removeToast: (id: number) => void;
   removeAllToasts: () => void;
   add50Toasts: () => void;
+  dissmissedToasts: number[];
 };

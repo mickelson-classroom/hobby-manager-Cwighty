@@ -4,7 +4,9 @@ import { ToastContextType } from "../../@types/toast";
 import { ToastItem } from "../Toast/ToastItem";
 
 export const ToastList: React.FC = () => {
-  const { toasts, removeToast } = useContext(ToastContext) as ToastContextType;
+  const { toasts, removeToast, dissmissedToasts } = useContext(
+    ToastContext
+  ) as ToastContextType;
   const toastListRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -26,7 +28,8 @@ export const ToastList: React.FC = () => {
             message={toast.message}
             id={toast.id}
             type={toast.type}
-            onDismiss={() => removeToast(toast.id)}
+            dismiss={() => removeToast(toast.id)}
+            dismissed={dissmissedToasts.includes(toast.id)}
           />
         ))}
       </div>
