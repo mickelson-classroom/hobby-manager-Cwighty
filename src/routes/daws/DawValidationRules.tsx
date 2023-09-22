@@ -6,11 +6,11 @@ export const DawValidationRules: {
   id: [(value) => (value ? null : "ID is required")],
   name: [(value) => (value ? null : "Name is required")],
   description: [(value) => (value ? null : "Description is required")],
-  website: [(value) => (value ? null : "Website is required")],
-  image: [(value) => (value ? null : "Image is required")],
-  features: [(value) => (value ? null : "Features is required")],
+  website: [(value) => null ],
+  image: [(value) =>  null ],
+  features: [(value) => null],
   price: [(value) => (value ? null : "Price is required")],
-  famousSongs: [(value) => (value ? null : "Famous Songs is required")],
+  famousSongs: [(value) => null ],
 };
 
 export const validateField = <T,>(

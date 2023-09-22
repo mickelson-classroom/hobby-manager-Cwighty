@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { DawContextType, Daw } from "../@types/daw";
 import dawsData from "../assets/daws.json";
 import {
@@ -7,8 +7,36 @@ import {
 } from "../routes/daws/DawValidationRules";
 export const DawContext = createContext<DawContextType | null>(null);
 
+const dawsKey = "storedDaws"
+const saveToLocalStorage = (daws: Daw[]) => {
+  const stringified = JSON.stringify(daws)
+  localStorage.setItem(dawsKey, stringified)
+}
+
+const readFromLocalStorage = () : Daw[] => {
+  const stringified = localStorage.getItem(dawsKey)
+  if (stringified === null) {
+    return dawsData
+  }
+  return JSON.parse(stringified!)
+}
+
 export const DawProvider = ({ children }: { children: React.ReactNode }) => {
-  const [daws, setDaws] = useState<Daw[]>(dawsData);
+  const [daws, setDaws] = useState<Daw[]>(readFromLocalStorage());
+
+  useEffect (() => {
+    const dawsFromStorage = readFromLocalStorage()
+    setDaws(dawsFromStorage)
+  }, [])
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      saveToLocalStorage(daws)
+    }, 1000)
+    return () => {
+      clearTimeout(handler)
+    }
+  }, [daws])
 
   const addDaw = (newDaw: Daw) => {
     const id = Math.max(...daws.map((daw) => daw.id)) + 1;
