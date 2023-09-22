@@ -10,6 +10,7 @@ import ReactDOM from "react-dom";
 import { DawDetail } from "./routes/daws/DawDetail";
 import { DawsList } from "./routes/daws/DawsList";
 import { ToastsDemo } from "./routes/toasts/ToastsDemo";
+import { RecordLibrary } from "./routes/records/RecordLibrary";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       },
       { path: "daw/:dawId", element: <DawDetail /> },
       { path: "toasts", element: <ToastsDemo /> },
+      {path: "records", element: <RecordLibrary />},
     ],
   },
 ]);

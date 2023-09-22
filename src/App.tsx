@@ -4,6 +4,7 @@ import { ErrorBoundary } from "./components/ErrorBoundry";
 import { DawContext, DawProvider } from "./context/dawContext";
 import { ToastProvider } from "./context/toastContext";
 import { ToastList } from "./components/ToastList/ToastList";
+import { RecordProvider } from "./context/recordContext";
 
 const App = () => {
   return (
@@ -13,7 +14,9 @@ const App = () => {
         <div className="container">
           <ErrorBoundary>
             <DawProvider>
+              <RecordProvider>
               <Outlet />
+              </RecordProvider>
             </DawProvider>
           </ErrorBoundary>
         </div>

@@ -31,6 +31,11 @@ export const Navbar: React.FC = () => {
                 Toast Demo
               </Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/records">
+                Record Collection
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
