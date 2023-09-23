@@ -1,0 +1,19 @@
+.dotted-circle {
+  position: absolute;
+  top: 80%;
+  right: 80%;
+  opacity: 0.2;
+  animation: rotation 50s linear infinite;
+  z-index: -1;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+
