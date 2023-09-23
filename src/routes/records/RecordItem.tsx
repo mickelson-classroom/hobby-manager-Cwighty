@@ -56,8 +56,8 @@ export const RecordItem = ({
               onChange={handleChange}
               label={"Artist"}
             />
-            <NumberInput
-              value={editedRecord.year}
+            <TextInput
+              value={editedRecord.year.toString()}
               onChange={handleChange}
               label={"Year"}
             />

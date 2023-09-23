@@ -57,9 +57,9 @@ export const RecordLibrary = () => {
                 value={newRecord.artist}
                 onChange={handleInput}
               />
-              <NumberInput
+              <TextInput
                 label="Year"
-                value={newRecord.year}
+                value={newRecord.year.toString()}
                 onChange={handleInput}
               />
               <button
