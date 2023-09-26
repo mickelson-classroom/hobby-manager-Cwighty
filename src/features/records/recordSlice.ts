@@ -13,6 +13,30 @@ const initialState: RecordState = {
       artist: "Pink Floyd",
       year: 1973,
     },
+    {
+      id: 2,
+      title: "The Wall",
+      artist: "Pink Floyd",
+      year: 1979,
+    },
+    {
+      id: 3,
+      title: "Wish You Were Here",
+      artist: "Pink Floyd",
+      year: 1975,
+    },
+    {
+      id: 4,
+      title: "Abbey Road",
+      artist: "The Beatles",
+      year: 1969,
+    },
+    {
+      id: 5,
+      title: "Revolver",
+      artist: "The Beatles",
+      year: 1966,
+    },
   ],
 };
 
