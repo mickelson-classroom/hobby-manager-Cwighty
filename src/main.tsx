@@ -11,6 +11,8 @@ import { DawDetail } from "./routes/daws/DawDetail";
 import { DawsList } from "./routes/daws/DawsList";
 import { ToastsDemo } from "./routes/toasts/ToastsDemo";
 import { RecordLibrary } from "./routes/records/RecordLibrary";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
 
 const router = createBrowserRouter([
   {
@@ -28,14 +30,16 @@ const router = createBrowserRouter([
       },
       { path: "daw/:dawId", element: <DawDetail /> },
       { path: "toasts", element: <ToastsDemo /> },
-      {path: "records", element: <RecordLibrary />},
+      { path: "records", element: <RecordLibrary /> },
     ],
   },
 ]);
 
 ReactDOM.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

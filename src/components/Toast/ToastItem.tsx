@@ -23,10 +23,11 @@ export const ToastItem: React.FC<ToastItemProps> = ({
     }, 50);
   }, []);
 
+  console.log("toastItem", dismissed);
   return (
     <div
       className={`card border-${type} my-2 shadow-lg toast-item ${
-        show && !dismissed ? " show " : ""
+        show && !dismissed ? " show " : " "
       }}`}
       style={{ width: "300px" }}
       role="alert"

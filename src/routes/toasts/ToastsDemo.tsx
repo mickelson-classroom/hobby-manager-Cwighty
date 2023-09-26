@@ -1,13 +1,14 @@
-import { useContext, useState } from "react";
-import { ToastContext } from "../../context/toastContext";
-import { ToastContextType } from "../../@types/toast";
+import { useAppDispatch } from "../../app/hooks";
+import {
+  addToast,
+  dismissAll,
+  dismissToast,
+  removeAll,
+  removeToast,
+} from "../../features/toasts/toastSlice";
 
 export const ToastsDemo = () => {
-  const { toasts, addToast, removeToast, removeAllToasts, add50Toasts } =
-    useContext(ToastContext) as ToastContextType;
-  const [autoClose, setAutoClose] = useState(true);
-  const [autoCloseDuration, setAutoCloseDuration] = useState(5);
-  const [position, setPosition] = useState("bottom-right");
+  const dispatch = useAppDispatch();
 
   const showToast = (message: string, type: string) => {
     const toast = {
@@ -16,7 +17,31 @@ export const ToastsDemo = () => {
       type,
     };
 
-    addToast(toast);
+    dispatch(addToast(toast));
+    setTimeout(() => {
+      dispatch(dismissToast(toast.id));
+      setTimeout(() => {
+        dispatch(removeToast(toast));
+      }, 1000);
+    }, 5000);
+  };
+
+  const add50Toasts = () => {
+    for (let i = 0; i < 50; i++) {
+      const toast = {
+        id: Date.now() + i,
+        message: `Toast ${i}`,
+        type: "success",
+      };
+      showToast(toast.message, toast.type);
+    }
+  };
+
+  const clearAllToasts = () => {
+    dispatch(dismissAll());
+    setTimeout(() => {
+      dispatch(removeAll());
+    }, 1000);
   };
 
   return (
@@ -45,7 +70,10 @@ export const ToastsDemo = () => {
         <button className="btn btn-info m-2" onClick={() => add50Toasts()}>
           Show 50 Toasts
         </button>
-        <button className="btn btn-secondary m-2" onClick={removeAllToasts}>
+        <button
+          className="btn btn-secondary m-2"
+          onClick={() => clearAllToasts()}
+        >
           Clear Toasts
         </button>
       </div>

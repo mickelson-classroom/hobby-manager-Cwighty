@@ -1,40 +1,50 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { ToastItemProps } from '../../@types/toast';
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { ToastItemProps } from "../../@types/toast";
 
 interface ToastState {
-    toasts: ToastItemProps[];
-    dissmissed: ToastItemProps[];
+  toasts: ToastItemProps[];
+  dismissed: number[];
 }
 
 const initialState: ToastState = {
-    toasts: [],
-    dissmissed: [],
+  toasts: [],
+  dismissed: [],
 };
 
 export const toastSlice = createSlice({
-    name: 'toast',
-    initialState,
-    reducers: {
-        addToast: (state, action: PayloadAction<ToastItemProps>) => {
-            state.toasts.push(action.payload);
-        },
-        dissmissToast: (state, action: PayloadAction<ToastItemProps>) => {
-            state.toasts = state.toasts.filter((toast) => toast.id !== action.payload.id);
-            state.dissmissed.push(action.payload);
-        },
-        removeToast: (state, action: PayloadAction<ToastItemProps>) => {
-            state.dissmissed = state.dissmissed.filter((toast) => toast.id !== action.payload.id);
-        },
-        dissmissAll: (state) => {
-            state.dissmissed = [...state.dissmissed, ...state.toasts];
-            state.toasts = [];
-        },
-        removeAll: (state) => {
-            state.dissmissed = [];
-        },
+  name: "toastStore",
+  initialState,
+  reducers: {
+    addToast: (state, action: PayloadAction<ToastItemProps>) => {
+      state.toasts.push(action.payload);
     },
+    dismissToast: (state, action: PayloadAction<number>) => {
+      state.toasts = state.toasts.filter(
+        (toast) => toast.id !== action.payload
+      );
+      state.dismissed.push(action.payload);
+    },
+    removeToast: (state, action: PayloadAction<ToastItemProps>) => {
+      state.dismissed = state.dismissed.filter(
+        (id) => id !== action.payload.id
+      );
+    },
+    dissmissAll: (state) => {
+      state.dismissed = [...state.dismissed, ...state.toasts.map((t) => t.id)];
+      state.toasts = [];
+    },
+    removeAll: (state) => {
+      state.dismissed = [];
+    },
+  },
 });
 
-export const { addToast, dissmissToast, removeToast, removeAll, dissmissAll } = toastSlice.actions;
+export const {
+  addToast,
+  dismissToast,
+  removeToast,
+  removeAll,
+  dissmissAll: dismissAll,
+} = toastSlice.actions;
 
 export default toastSlice.reducer;
