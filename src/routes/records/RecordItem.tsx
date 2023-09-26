@@ -1,8 +1,8 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { MusicRecord, RecordContextType } from "../../@types/musicRecord";
-import { RecordContext } from "../../context/recordContext";
 import { TextInput } from "../../components/TextInput";
-import { NumberInput } from "../../components/NumberInput";
+import { useAppDispatch } from "../../app/hooks";
+import { updateRecord } from "../../features/records/recordSlice";
 
 export const RecordItem = ({
   record,
@@ -11,13 +11,13 @@ export const RecordItem = ({
   record: MusicRecord;
   onRemove: () => void;
 }) => {
-  const { updateRecord } = useContext(RecordContext) as RecordContextType;
+  const dispatch = useAppDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [editedRecord, setEditedRecord] = useState<MusicRecord>(record);
 
   const handleSave = () => {
     setIsEditing(false);
-    updateRecord(editedRecord);
+    dispatch(updateRecord(editedRecord));
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

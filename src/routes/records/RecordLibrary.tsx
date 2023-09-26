@@ -1,15 +1,13 @@
-import { useContext, useState } from "react";
-import { RecordContext } from "../../context/recordContext";
+import { useState } from "react";
 import { MusicRecord, RecordContextType } from "../../@types/musicRecord";
 import { RecordItem } from "./RecordItem";
 import { TextInput } from "../../components/TextInput";
-import { NumberInput } from "../../components/NumberInput";
-import { SpinningCircle } from "../../components/svgs/SpinningCircle";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { addRecord, removeRecord } from "../../features/records/recordSlice";
 
 export const RecordLibrary = () => {
-  const { records, deleteRecord, addRecord } = useContext(
-    RecordContext
-  ) as RecordContextType;
+  const records = useAppSelector((state) => state.recordStore.records);
+  const dispatch = useAppDispatch();
 
   const defaultRecord: MusicRecord = {
     id: 0,
@@ -37,7 +35,7 @@ export const RecordLibrary = () => {
               <RecordItem
                 key={record.id}
                 record={record}
-                onRemove={() => deleteRecord(record.id)}
+                onRemove={() => dispatch(removeRecord(record))}
               />
             </div>
           ))}
@@ -65,7 +63,7 @@ export const RecordLibrary = () => {
               <button
                 className="btn btn-primary my-2"
                 onClick={() => {
-                  addRecord(newRecord);
+                  dispatch(addRecord(newRecord));
                   setNewRecord(defaultRecord);
                 }}
               >
