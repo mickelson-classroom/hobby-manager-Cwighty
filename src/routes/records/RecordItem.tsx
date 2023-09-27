@@ -3,6 +3,7 @@ import { MusicRecord, RecordContextType } from "../../@types/musicRecord";
 import { TextInput } from "../../components/TextInput";
 import { useAppDispatch } from "../../app/hooks";
 import { updateRecord } from "../../features/records/recordSlice";
+import { ImageInput } from "../../components/ImageInput";
 
 export const RecordItem = ({
   record,
@@ -27,6 +28,13 @@ export const RecordItem = ({
     });
   };
 
+  const handleBase64Set = (base64: string | null) => {
+    setEditedRecord({
+      ...editedRecord,
+      image: base64,
+    });
+  };
+
   return (
     <div className="card">
       <div className="card-header d-flex justify-content-end align-content-center">
@@ -46,6 +54,10 @@ export const RecordItem = ({
       {isEditing ? (
         <div className="card-body">
           <div className="form-group">
+            <ImageInput
+              base64={editedRecord.image || null}
+              setBase64={handleBase64Set}
+            />
             <TextInput
               value={editedRecord.title}
               onChange={handleChange}
@@ -64,11 +76,22 @@ export const RecordItem = ({
           </div>
         </div>
       ) : (
-        <div className="card-body">
-          <h3>{record.title}</h3>
-          <p>{record.artist}</p>
-          <p>{record.year}</p>
-        </div>
+        <>
+          <img
+            className="card-img-top w-50 mx-auto"
+            src={
+              record.image
+                ? `data:image/jpeg;base64,${record.image}`
+                : "/placeholder_vinyl.jpg"
+            }
+            alt={record.title}
+          />
+          <div className="card-body">
+            <h3>{record.title}</h3>
+            <p>{record.artist}</p>
+            <p>{record.year}</p>
+          </div>
+        </>
       )}
     </div>
   );

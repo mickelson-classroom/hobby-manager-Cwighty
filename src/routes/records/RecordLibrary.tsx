@@ -4,6 +4,7 @@ import { RecordItem } from "./RecordItem";
 import { TextInput } from "../../components/TextInput";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { addRecord, removeRecord } from "../../features/records/recordSlice";
+import { ImageInput } from "../../components/ImageInput";
 
 export const RecordLibrary = () => {
   const records = useAppSelector((state) => state.recordStore.records);
@@ -14,6 +15,7 @@ export const RecordLibrary = () => {
     title: "",
     artist: "",
     year: 0,
+    image: null,
   };
 
   const [newRecord, setNewRecord] = useState<MusicRecord>(defaultRecord);
@@ -22,6 +24,13 @@ export const RecordLibrary = () => {
     setNewRecord({
       ...newRecord,
       [event.target.id]: event.target.value,
+    });
+  };
+
+  const handleBase64Set = (base64: string | null) => {
+    setNewRecord({
+      ...newRecord,
+      image: base64,
     });
   };
 
@@ -45,6 +54,10 @@ export const RecordLibrary = () => {
           <div className="card">
             <div className="card-header">Add Record</div>
             <div className="card-body">
+              <ImageInput
+                base64={newRecord.image || null}
+                setBase64={handleBase64Set}
+              />
               <TextInput
                 label="Title"
                 value={newRecord.title}
