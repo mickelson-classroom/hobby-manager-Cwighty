@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { MusicRecord, RecordContextType } from "../../@types/musicRecord";
 import { RecordItem } from "./RecordItem";
-import { TextInput } from "../../components/TextInput";
+import { TextInput, useTextInput } from "../../components/TextInput";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { addRecord, removeRecord } from "../../features/records/recordSlice";
 import { ImageInput } from "../../components/ImageInput";
@@ -14,18 +14,43 @@ export const RecordLibrary = () => {
     id: 0,
     title: "",
     artist: "",
+    genre: "",
     year: 0,
     image: null,
   };
 
   const [newRecord, setNewRecord] = useState<MusicRecord>(defaultRecord);
 
-  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewRecord({
-      ...newRecord,
-      [event.target.id]: event.target.value,
-    });
-  };
+  const titleTextControl = useTextInput({
+    initialValue: newRecord.title,
+    onChange: (value) => {
+      setNewRecord({
+        ...newRecord,
+        title: value,
+      });
+    },
+  });
+  console.log(titleTextControl);
+
+  const artistTextControl = useTextInput({
+    initialValue: newRecord.artist,
+    onChange: (value) => {
+      setNewRecord({
+        ...newRecord,
+        artist: value,
+      });
+    },
+  });
+
+  const yearTextControl = useTextInput({
+    initialValue: newRecord.year.toString(),
+    onChange: (value) => {
+      setNewRecord({
+        ...newRecord,
+        year: parseInt(value),
+      });
+    },
+  });
 
   const handleBase64Set = (base64: string | null) => {
     setNewRecord({
@@ -58,26 +83,17 @@ export const RecordLibrary = () => {
                 base64={newRecord.image || null}
                 setBase64={handleBase64Set}
               />
-              <TextInput
-                label="Title"
-                value={newRecord.title}
-                onChange={handleInput}
-              />
-              <TextInput
-                label="Artist"
-                value={newRecord.artist}
-                onChange={handleInput}
-              />
-              <TextInput
-                label="Year"
-                value={newRecord.year.toString()}
-                onChange={handleInput}
-              />
+              <TextInput label="Title" control={titleTextControl} />
+              <TextInput label="Artist" control={artistTextControl} />
+              <TextInput label="Year" control={yearTextControl} />
               <button
                 className="btn btn-primary my-2"
                 onClick={() => {
                   dispatch(addRecord(newRecord));
                   setNewRecord(defaultRecord);
+                  titleTextControl.clear();
+                  artistTextControl.clear();
+                  yearTextControl.clear();
                 }}
               >
                 Add

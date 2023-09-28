@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { MusicRecord, RecordContextType } from "../../@types/musicRecord";
-import { TextInput } from "../../components/TextInput";
+import { TextInput, useTextInput } from "../../components/TextInput";
 import { useAppDispatch } from "../../app/hooks";
 import { updateRecord } from "../../features/records/recordSlice";
 import { ImageInput } from "../../components/ImageInput";
@@ -16,16 +16,39 @@ export const RecordItem = ({
   const [isEditing, setIsEditing] = useState(false);
   const [editedRecord, setEditedRecord] = useState<MusicRecord>(record);
 
+  const titleTextControl = useTextInput({
+    initialValue: record.title,
+    onChange: (value) => {
+      setEditedRecord({
+        ...editedRecord,
+        title: value,
+      });
+    },
+  });
+
+  const artistTextControl = useTextInput({
+    initialValue: record.artist,
+    onChange: (value) => {
+      setEditedRecord({
+        ...editedRecord,
+        artist: value,
+      });
+    },
+  });
+
+  const yearTextControl = useTextInput({
+    initialValue: record.year.toString(),
+    onChange: (value) => {
+      setEditedRecord({
+        ...editedRecord,
+        year: parseInt(value),
+      });
+    },
+  });
+
   const handleSave = () => {
     setIsEditing(false);
     dispatch(updateRecord(editedRecord));
-  };
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEditedRecord({
-      ...editedRecord,
-      [event.target.id]: event.target.value,
-    });
   };
 
   const handleBase64Set = (base64: string | null) => {
@@ -58,21 +81,9 @@ export const RecordItem = ({
               base64={editedRecord.image || null}
               setBase64={handleBase64Set}
             />
-            <TextInput
-              value={editedRecord.title}
-              onChange={handleChange}
-              label={"Title"}
-            />
-            <TextInput
-              value={editedRecord.artist}
-              onChange={handleChange}
-              label={"Artist"}
-            />
-            <TextInput
-              value={editedRecord.year.toString()}
-              onChange={handleChange}
-              label={"Year"}
-            />
+            <TextInput control={titleTextControl} label={"Title"} />
+            <TextInput control={artistTextControl} label={"Artist"} />
+            <TextInput control={yearTextControl} label={"Year"} />
           </div>
         </div>
       ) : (

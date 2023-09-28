@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import { TextInput } from "../../components/TextInput";
+import { TextInput, useTextInput } from "../../components/TextInput";
 import { Daw, DawContextType } from "../../@types/daw";
 import { DawContext } from "../../context/dawContext";
 import { DawValidationRules } from "./DawValidationRules";
@@ -25,18 +25,47 @@ export const DawsList = () => {
     }
   }, [hasError]);
 
+  const nameTextControl = useTextInput({
+    initialValue: formData.name,
+    onChange: (value) => {
+      setFormData({
+        ...formData,
+        name: value,
+      });
+    },
+  });
+
+  const descriptionTextControl = useTextInput({
+    initialValue: formData.description,
+    onChange: (value) => {
+      setFormData({
+        ...formData,
+        description: value,
+      });
+    },
+  });
+
+  const priceTextControl = useTextInput({
+    initialValue: formData.price,
+    onChange: (value) => {
+      setFormData({
+        ...formData,
+        price: value,
+      });
+    },
+  });
+
   const handleException = () => {
     setHasError(true);
-  };
-
-  const handleForm = (e: React.FormEvent<HTMLInputElement>): void => {
-    setFormData({ ...formData, [e.currentTarget.id]: e.currentTarget.value });
   };
 
   const handleSave = (e: React.FormEvent, daw: Daw) => {
     e.preventDefault();
     if (!addDaw) return;
     addDaw(daw);
+    nameTextControl.clear();
+    descriptionTextControl.clear();
+    priceTextControl.clear();
   };
 
   if (daws === undefined) {
@@ -69,21 +98,18 @@ export const DawsList = () => {
         <form className="input-form" onSubmit={(e) => handleSave(e, formData)}>
           <div className="mb-3">
             <TextInput
-              value={formData.name}
               label={"Name"}
-              onChange={handleForm}
+              control={nameTextControl}
               rules={DawValidationRules.name}
             />
             <TextInput
-              value={formData.description}
               label={"Description"}
-              onChange={handleForm}
+              control={descriptionTextControl}
               rules={DawValidationRules.description}
             />
             <TextInput
-              value={formData.price}
               label={"Price"}
-              onChange={handleForm}
+              control={priceTextControl}
               rules={DawValidationRules.price}
             />
           </div>
