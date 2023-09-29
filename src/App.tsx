@@ -10,7 +10,7 @@ const App = () => {
   return (
     <>
       <Navbar />
-      <div className="container">
+      <div className="container" style={{ marginBottom: "100px" }}>
         <ErrorBoundary>
           <DawProvider>
             <Outlet />
