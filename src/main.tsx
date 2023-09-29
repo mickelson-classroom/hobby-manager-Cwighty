@@ -13,6 +13,7 @@ import { ToastsDemo } from "./routes/toasts/ToastsDemo";
 import { RecordLibrary } from "./routes/records/RecordLibrary";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
+import { FancyAnimation } from "./routes/cssAnimation/FancyAnimation";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
       { path: "daw/:dawId", element: <DawDetail /> },
       { path: "toasts", element: <ToastsDemo /> },
       { path: "records", element: <RecordLibrary /> },
+      { path: "wow", element: <FancyAnimation /> },
     ],
   },
 ]);

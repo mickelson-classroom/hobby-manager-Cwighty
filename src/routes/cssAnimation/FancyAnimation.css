@@ -1,0 +1,48 @@
+@keyframes colorRotate {
+  0% {
+    text-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+  }
+  25% {
+    text-shadow: 0 0 30px rgba(255, 174, 0, 0.8);
+  }
+  50% {
+    text-shadow: 0 0 30px rgba(0, 255, 0, 0.8);
+  }
+  75% {
+    text-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+  }
+  100% {
+    text-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+  }
+}
+
+@keyframes bobbing {
+  0%,
+  100% {
+    transform: translateY(0) perspective(100px) rotateY(0deg);
+  }
+  50% {
+    transform: translateY(-50px) perspective(100px) rotateY(180deg);
+  }
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.word {
+  font-size: 8rem;
+  margin: 0 10px;
+  transition: transform 0.8s ease-out;
+  position: relative;
+  animation: colorRotate 5s infinite alternate;
+}
+
+.letter {
+  display: inline-block;
+  transition: transform 0.8s ease-out;
+  animation: colorRotate 5s infinite linear, bobbing 3s infinite ease-in-out;
+}

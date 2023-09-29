@@ -4,6 +4,7 @@ import {
   faRecordVinyl,
   faBell,
   faMusic,
+  faExplosion,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -23,6 +24,11 @@ export const Navbar: React.FC = () => {
       name: "Record Collection",
       path: "/records",
       icon: faRecordVinyl,
+    },
+    {
+      name: "Wow",
+      path: "/wow",
+      icon: faExplosion,
     },
   ];
 
