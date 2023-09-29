@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import { TextInput, useTextInput } from "../../components/TextInput";
+import { TextInput, useTextInput } from "../../components/inputs/TextInput";
 import { Daw, DawContextType } from "../../@types/daw";
 import { DawContext } from "../../context/dawContext";
 import { DawValidationRules } from "./DawValidationRules";
@@ -93,7 +93,7 @@ export const DawsList = () => {
         ))}
       </ul>
 
-      <div className="border rounded my-3 p-3">
+      <div className="border rounded my-3 p-3 bg-dark">
         <h3 className="my-3">Add a DAW</h3>
         <form className="input-form" onSubmit={(e) => handleSave(e, formData)}>
           <div className="mb-3">

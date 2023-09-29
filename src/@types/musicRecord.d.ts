@@ -7,19 +7,6 @@ export interface MusicRecord {
   image?: string?;
 }
 
-export const genreOptions = [
-  "Rock",
-  "Pop",
-  "Hip Hop",
-  "Jazz",
-  "Electronic",
-  "Classical",
-  "Folk",
-  "Reggae",
-  "Blues",
-  "Country",
-];
-
 export type RecordContextType = {
   records: MusicRecord[];
   addRecord: (record: MusicRecord) => void;

@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { MusicRecord, RecordContextType } from "../../@types/musicRecord";
-import { TextInput, useTextInput } from "../../components/TextInput";
+import { TextInput, useTextInput } from "../../components/inputs/TextInput";
 import { useAppDispatch } from "../../app/hooks";
-import { updateRecord } from "../../features/records/recordSlice";
-import { ImageInput } from "../../components/ImageInput";
+import { genreOptions, updateRecord } from "../../features/records/recordSlice";
+import { ImageInput } from "../../components/inputs/ImageInput";
+import {
+  OptionInput,
+  useOptionInput,
+} from "../../components/inputs/OptionInput";
 
 export const RecordItem = ({
   record,
@@ -34,6 +38,19 @@ export const RecordItem = ({
         artist: value,
       });
     },
+  });
+
+  const genreOptionControl = useOptionInput({
+    initialLabel: "Genre",
+    initialOptions: genreOptions,
+    initialValue: record.genre,
+    onChange: (value: string) => {
+      setEditedRecord({
+        ...editedRecord,
+        genre: value,
+      });
+    },
+    initialType: "select",
   });
 
   const yearTextControl = useTextInput({
@@ -84,6 +101,7 @@ export const RecordItem = ({
             <TextInput control={titleTextControl} label={"Title"} />
             <TextInput control={artistTextControl} label={"Artist"} />
             <TextInput control={yearTextControl} label={"Year"} />
+            <OptionInput control={genreOptionControl} />
           </div>
         </div>
       ) : (
@@ -101,6 +119,7 @@ export const RecordItem = ({
             <h3>{record.title}</h3>
             <p>{record.artist}</p>
             <p>{record.year}</p>
+            <p>{record.genre}</p>
           </div>
         </>
       )}

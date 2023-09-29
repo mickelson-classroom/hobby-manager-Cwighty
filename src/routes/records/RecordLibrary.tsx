@@ -1,10 +1,18 @@
 import { useState } from "react";
 import { MusicRecord, RecordContextType } from "../../@types/musicRecord";
 import { RecordItem } from "./RecordItem";
-import { TextInput, useTextInput } from "../../components/TextInput";
+import { TextInput, useTextInput } from "../../components/inputs/TextInput";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { addRecord, removeRecord } from "../../features/records/recordSlice";
-import { ImageInput } from "../../components/ImageInput";
+import {
+  addRecord,
+  genreOptions,
+  removeRecord,
+} from "../../features/records/recordSlice";
+import { ImageInput } from "../../components/inputs/ImageInput";
+import {
+  OptionInput,
+  useOptionInput,
+} from "../../components/inputs/OptionInput";
 
 export const RecordLibrary = () => {
   const records = useAppSelector((state) => state.recordStore.records);
@@ -14,8 +22,8 @@ export const RecordLibrary = () => {
     id: 0,
     title: "",
     artist: "",
-    genre: "",
-    year: 0,
+    genre: genreOptions[0].value,
+    year: 2023,
     image: null,
   };
 
@@ -52,6 +60,19 @@ export const RecordLibrary = () => {
     },
   });
 
+  const genreOptionControl = useOptionInput({
+    initialLabel: "Genre",
+    initialOptions: genreOptions,
+    initialValue: newRecord.genre,
+    onChange: (value: string) => {
+      setNewRecord({
+        ...newRecord,
+        genre: value,
+      });
+    },
+    initialType: "select",
+  });
+
   const handleBase64Set = (base64: string | null) => {
     setNewRecord({
       ...newRecord,
@@ -86,6 +107,7 @@ export const RecordLibrary = () => {
               <TextInput label="Title" control={titleTextControl} />
               <TextInput label="Artist" control={artistTextControl} />
               <TextInput label="Year" control={yearTextControl} />
+              <OptionInput control={genreOptionControl} />
               <button
                 className="btn btn-primary my-2"
                 onClick={() => {
@@ -93,7 +115,8 @@ export const RecordLibrary = () => {
                   setNewRecord(defaultRecord);
                   titleTextControl.clear();
                   artistTextControl.clear();
-                  yearTextControl.clear();
+                  yearTextControl.setValue(defaultRecord.year.toString());
+                  genreOptionControl.setValue(defaultRecord.genre);
                 }}
               >
                 Add
