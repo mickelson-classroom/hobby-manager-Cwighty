@@ -23,3 +23,8 @@ services:
     ports:
     - 0.0.0.0:3002:443
     restart: unless-stopped
+
+  api:
+    image: cwighty/storageapi
+    volumes:
+      - ./api_data:/app/data # Mount a volume for data persistence
