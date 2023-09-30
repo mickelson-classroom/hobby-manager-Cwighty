@@ -83,7 +83,7 @@ export const RecordLibrary = () => {
   return (
     <div>
       <h1>Record Library</h1>
-      <div className="row">
+      <div className="row mb-5">
         <div className="col-12 col-lg-6">
           {records.map((record) => (
             <div className="mb-3">
@@ -97,7 +97,7 @@ export const RecordLibrary = () => {
         </div>
 
         <div className="col-12 col-lg-6">
-          <div className="card">
+          <div className="card mb-5">
             <div className="card-header">Add Record</div>
             <div className="card-body">
               <ImageInput

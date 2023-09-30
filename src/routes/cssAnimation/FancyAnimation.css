@@ -22,7 +22,7 @@
     transform: translateY(0) perspective(100px) rotateY(0deg);
   }
   50% {
-    transform: translateY(-50px) perspective(100px) rotateY(180deg);
+    transform: translateY(-50px) perspective(100px) rotateY(180deg) rotate3d(1, 0, 0, 45deg);
   }
 }
 

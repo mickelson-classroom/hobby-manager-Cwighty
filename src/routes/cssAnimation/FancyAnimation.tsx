@@ -1,3 +1,4 @@
+// Homework 5.5 CSS transition
 import React, { useRef } from "react";
 import "./FancyAnimation.css";
 
