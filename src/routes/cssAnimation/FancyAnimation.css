@@ -6,13 +6,13 @@
     text-shadow: 0 0 30px rgba(255, 174, 0, 0.8);
   }
   50% {
-    text-shadow: 0 0 30px rgba(0, 255, 0, 0.8);
+    text-shadow: 0 0 30px rgba(255, 255, 0, 0.8);
   }
   75% {
-    text-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+    text-shadow: 0 0 30px rgba(0, 255, 0, 0.8);
   }
   100% {
-    text-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+    text-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
   }
 }
 
@@ -22,7 +22,8 @@
     transform: translateY(0) perspective(100px) rotateY(0deg);
   }
   50% {
-    transform: translateY(-50px) perspective(100px) rotateY(180deg) rotate3d(1, 0, 0, 45deg);
+    transform: translateY(-50px) perspective(100px) rotateY(180deg)
+      rotate3d(1, 0, 0, 45deg);
   }
 }
 
