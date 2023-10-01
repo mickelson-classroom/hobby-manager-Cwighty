@@ -17,7 +17,7 @@ export const DawDetail = () => {
   }
 
   return (
-    <div className="container border rounded my-3 p-3">
+    <div className="border rounded my-3 p-3">
       <div className="row">
         <div className="col-md-6">
           <img
