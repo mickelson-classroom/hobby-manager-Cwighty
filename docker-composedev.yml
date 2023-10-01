@@ -1,0 +1,13 @@
+version: '3'
+services:
+  client:
+    build: .
+    ports:
+      - 3000:80
+
+  api:
+    image: cwighty/storageapi
+    ports:
+      - 0.0.0.0:5000:80
+    volumes:
+      - ./api_data:/app/data # Mount a volume for data persistence

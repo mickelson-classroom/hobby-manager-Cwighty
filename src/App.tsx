@@ -21,7 +21,6 @@ const App = () => {
         </ErrorBoundary>
       </div>
       <SpinningCircle />
-      <BouncingCircles />
       <ToastList />
     </>
   );

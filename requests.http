@@ -7,3 +7,12 @@ Content-Type: application/json
 
 ###
 GET https://100.68.122.57:3002/api/store?key=test
+
+###
+
+POST http://localhost:5000/api/store?key=test
+Content-Type: application/json
+
+{
+  "testdata": "this is test data"
+}
