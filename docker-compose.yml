@@ -27,4 +27,4 @@ services:
   api:
     image: cwighty/storageapi
     volumes:
-      - ./api_data:/app/data # Mount a volume for data persistence
+      - /home/caleb/data/api_data:/app/data # Mount a volume for data persistence
