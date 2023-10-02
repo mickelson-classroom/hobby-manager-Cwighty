@@ -1,6 +1,6 @@
 import { DawComment } from "../../@types/dawComment";
 
-const API_URL = "http://localhost:5000/api/store";
+const API_URL = "/api/store";
 console.log(API_URL);
 
 export const fetchCommentsForDaw = async (
