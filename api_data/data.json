@@ -18,5 +18,19 @@
       "dawId": 3,
       "content": "wows"
     }
-  ]
+  ],
+  "daws": {
+    "daws": [
+      {
+        "id": 0,
+        "name": "Abelton Live",
+        "description": "asdf",
+        "website": "",
+        "image": "",
+        "features": [],
+        "price": "asdf",
+        "famousSongs": []
+      }
+    ]
+  }
 }

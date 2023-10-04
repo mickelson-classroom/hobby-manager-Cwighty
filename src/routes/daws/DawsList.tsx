@@ -4,10 +4,11 @@ import { TextInput, useTextInput } from "../../components/inputs/TextInput";
 import { Daw, DawContextType } from "../../@types/daw";
 import { DawContext } from "../../context/dawContext";
 import { DawValidationRules } from "./DawValidationRules";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { createDaw, fetchDaws } from "../../features/daws/dawsSlice";
 
 export const DawsList = () => {
   const [hasError, setHasError] = useState(false);
-  const { addDaw, daws } = useContext(DawContext) as DawContextType;
   const [formData, setFormData] = useState<Daw>({
     id: 0,
     name: "",
@@ -18,12 +19,17 @@ export const DawsList = () => {
     price: "",
     famousSongs: [],
   });
-
+  const dispatch = useAppDispatch();
+  const daws = useAppSelector((state) => state.dawStore.daws);
   useEffect(() => {
     if (hasError) {
       throw new Error("Error thrown from DawsList");
     }
   }, [hasError]);
+
+  useEffect(() => {
+    dispatch(fetchDaws());
+  }, [dispatch]);
 
   const nameTextControl = useTextInput({
     initialValue: formData.name,
@@ -61,8 +67,7 @@ export const DawsList = () => {
 
   const handleSave = (e: React.FormEvent, daw: Daw) => {
     e.preventDefault();
-    if (!addDaw) return;
-    addDaw(daw);
+    dispatch(createDaw(daw));
     nameTextControl.clear();
     descriptionTextControl.clear();
     priceTextControl.clear();
