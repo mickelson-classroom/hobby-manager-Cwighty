@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { DawComment } from "../../@types/dawComment";
+import axios from "axios";
 
 const API_URL = "/api/store";
 // const API_URL = "http://localhost:5000/api/store";
@@ -8,22 +9,28 @@ const COMMENTS_QUERY_KEY = "dawComments";
 const getCommentsUrl = (dawId: number) => `${API_URL}?key=dawComments_${dawId}`;
 
 const fetchComments = async (dawId: number): Promise<DawComment[]> => {
-  const response = await fetch(getCommentsUrl(dawId));
-  if (response.status === 404) {
-    return [];
+  try {
+    const response = await axios.get(getCommentsUrl(dawId));
+    if (response.status === 404) {
+      return [];
+    }
+    return response.data || [];
+  } catch (error: any) {
+    throw error;
   }
-  return response.json() || [];
 };
 
 const postComments = async (params: {
   dawId: number;
   comments: DawComment[];
 }): Promise<void> => {
-  await fetch(getCommentsUrl(params.dawId), {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(params.comments),
-  });
+  try {
+    await axios.post(getCommentsUrl(params.dawId), params.comments, {
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error: any) {
+    throw error;
+  }
 };
 
 export const useCommentsForDawQuery = (dawId: number) => {

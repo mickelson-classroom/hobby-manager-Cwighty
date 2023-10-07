@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Spinner } from "../../components/Spinner";
 import {
   useAddCommentForDawMutation,
@@ -6,6 +6,8 @@ import {
   useDeleteCommentForDawMutation,
   useEditCommentForDawMutation,
 } from "../../features/daws/commentQueries";
+import { ToastContext } from "../../context/toastContext";
+import { ToastContextType } from "../../@types/toast";
 
 type DawCommentProps = {
   dawId: number;
@@ -14,7 +16,9 @@ type DawCommentProps = {
 export const DawComments: React.FC<DawCommentProps> = ({ dawId }) => {
   const {
     data: comments = [],
-    isLoading: isLoadingComments,
+    isLoading: isLoading,
+    isError: isError,
+    error: error,
     refetch,
   } = useCommentsForDawQuery(dawId);
 
@@ -26,9 +30,20 @@ export const DawComments: React.FC<DawCommentProps> = ({ dawId }) => {
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
   const [editingContent, setEditingContent] = useState<string>("");
 
+  const { addToast } = useContext(ToastContext) as ToastContextType;
+
   const startEditingComment = (commentId: number, content: string) => {
     setEditingCommentId(commentId);
     setEditingContent(content);
+  };
+
+  const handleError = (error: any, message: string) => {
+    const toast = {
+      id: Date.now(),
+      message: message + (error ? ": " + error.message : ""),
+      type: "danger",
+    };
+    addToast(toast);
   };
 
   const handleAddComment = () => {
@@ -41,6 +56,9 @@ export const DawComments: React.FC<DawCommentProps> = ({ dawId }) => {
         onSuccess: () => {
           refetch();
           setNewComment("");
+        },
+        onError: (error) => {
+          handleError(error, "Error adding comment");
         },
       }
     );
@@ -56,6 +74,9 @@ export const DawComments: React.FC<DawCommentProps> = ({ dawId }) => {
             setEditingCommentId(null);
             setEditingContent("");
           },
+          onError: (error) => {
+            handleError(error, "Error saving comment");
+          },
         }
       );
     }
@@ -69,17 +90,24 @@ export const DawComments: React.FC<DawCommentProps> = ({ dawId }) => {
           onSuccess: () => {
             refetch();
           },
+          onError: (error) => {
+            handleError(error, "Error deleting comment");
+          },
         }
       );
     }
   };
 
+  useEffect(() => {
+    if (error) handleError(error, "Error loading comments");
+  }, [isError]);
+
   return (
     <div className="mt-4">
       <h4>Comments:</h4>
-      {isLoadingComments ? (
-        <Spinner />
-      ) : (
+      {isError && <p>No Comments at this time</p>}
+      {isLoading && <Spinner />}
+      {!isLoading && !isError && (
         <div>
           {comments.length === 0 && <p>No comments yet.</p>}
           {comments.map((comment) => (
