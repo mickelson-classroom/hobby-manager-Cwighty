@@ -1,13 +1,12 @@
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
+import { ToastContextType } from "../../@types/toast";
 import { ToastItem } from "../Toast/ToastItem";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { dismissToast } from "../../features/toasts/toastSlice";
+import { ToastContext } from "../../context/toastContext";
 
 export const ToastList: React.FC = () => {
-  const toasts = useAppSelector((state) => state.toastStore.toasts);
-  const dismissedToasts = useAppSelector((state) => state.toastStore.dismissed);
-  const dispatch = useAppDispatch();
-
+  const { toasts, removeToast, dissmissedToasts } = useContext(
+    ToastContext
+  ) as ToastContextType;
   const toastListRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -29,8 +28,8 @@ export const ToastList: React.FC = () => {
             message={toast.message}
             id={toast.id}
             type={toast.type}
-            dismiss={() => dispatch(dismissToast(toast.id))}
-            dismissed={dismissedToasts.includes(toast.id)}
+            dismiss={() => removeToast(toast.id)}
+            dismissed={dissmissedToasts.includes(toast.id)}
           />
         ))}
       </div>
