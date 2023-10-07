@@ -1,71 +1,76 @@
-// CommentComponent.tsx
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Spinner } from "../../components/Spinner";
-import { DawComment } from "../../@types/dawComment";
 import {
-  addCommentForDaw,
-  deleteCommentForDaw,
-  editCommentForDaw,
-  fetchCommentsForDaw,
-} from "../../features/daws/commentsApiService";
+  useAddCommentForDawMutation,
+  useCommentsForDawQuery,
+  useDeleteCommentForDawMutation,
+  useEditCommentForDawMutation,
+} from "../../features/daws/commentQueries";
 
 type DawCommentProps = {
   dawId: number;
 };
 
 export const DawComments: React.FC<DawCommentProps> = ({ dawId }) => {
-  const [comments, setComments] = useState<DawComment[]>([]);
+  const {
+    data: comments = [],
+    isLoading: isLoadingComments,
+    refetch,
+  } = useCommentsForDawQuery(dawId);
+
+  const addCommentMutation = useAddCommentForDawMutation();
+  const editCommentMutation = useEditCommentForDawMutation();
+  const deleteCommentMutation = useDeleteCommentForDawMutation();
+
   const [newComment, setNewComment] = useState("");
-  const [isLoadingComments, setIsLoading] = useState(false);
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
   const [editingContent, setEditingContent] = useState<string>("");
-
-  useEffect(() => {
-    const loadComments = async () => {
-      setIsLoading(true);
-      const commentsForDaw = await fetchCommentsForDaw(dawId);
-      setComments(commentsForDaw);
-      setIsLoading(false);
-    };
-    loadComments();
-  }, [dawId]);
 
   const startEditingComment = (commentId: number, content: string) => {
     setEditingCommentId(commentId);
     setEditingContent(content);
   };
 
-  const handleAddComment = async () => {
+  const handleAddComment = () => {
     if (newComment.trim() === "") {
       return;
     }
-    setIsLoading(true);
-    await addCommentForDaw(dawId, newComment);
-    const updatedComments = await fetchCommentsForDaw(dawId);
-    setComments(updatedComments);
-    setIsLoading(false);
-    setNewComment("");
+    addCommentMutation.mutate(
+      { dawId, content: newComment },
+      {
+        onSuccess: () => {
+          refetch();
+          setNewComment("");
+        },
+      }
+    );
   };
 
-  const saveEditedComment = async () => {
+  const saveEditedComment = () => {
     if (editingCommentId !== null && editingContent !== "") {
-      setIsLoading(true);
-      await editCommentForDaw(dawId, editingCommentId, editingContent);
-      const updatedComments = await fetchCommentsForDaw(dawId);
-      setComments(updatedComments);
-      setIsLoading(false);
-      setEditingCommentId(null);
-      setEditingContent("");
+      editCommentMutation.mutate(
+        { dawId, commentId: editingCommentId, newContent: editingContent },
+        {
+          onSuccess: () => {
+            refetch();
+            setEditingCommentId(null);
+            setEditingContent("");
+          },
+        }
+      );
     }
   };
 
-  const handleDeleteComment = async (commentId: number) => {
+  const handleDeleteComment = (commentId: number) => {
     if (window.confirm("Are you sure you want to delete this comment?")) {
-      setIsLoading(true);
-      await deleteCommentForDaw(dawId, commentId);
-      const updatedComments = await fetchCommentsForDaw(dawId);
-      setComments(updatedComments);
-      setIsLoading(false);
+      deleteCommentMutation.mutate(
+        { dawId, commentId },
+        {
+          onSuccess: () => {
+            refetch();
+          },
+        }
+      );
     }
   };
 

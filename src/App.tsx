@@ -1,26 +1,28 @@
 import { Outlet } from "react-router-dom";
 import { Navbar } from "./shared/navbar";
 import { ErrorBoundary } from "./components/ErrorBoundry";
-import { DawContext, DawProvider } from "./context/dawContext";
+import { DawProvider } from "./context/dawContext";
 import { ToastList } from "./components/ToastList/ToastList";
-import { SpinningCircle } from "./components/svgs/SpinningCircle";
-import { BouncingCircles } from "./components/svgs/BouncingCircles";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const App = () => {
+  const queryClient = new QueryClient();
   return (
     <>
-      <Navbar />
-      <div
-        className="container align-items-start d-block"
-        style={{ marginBottom: "100px" }}
-      >
-        <ErrorBoundary>
-          <DawProvider>
-            <Outlet />
-          </DawProvider>
-        </ErrorBoundary>
-      </div>
-      <ToastList />
+      <QueryClientProvider client={queryClient}>
+        <Navbar />
+        <div
+          className="container align-items-start d-block"
+          style={{ marginBottom: "100px" }}
+        >
+          <ErrorBoundary>
+            <DawProvider>
+              <Outlet />
+            </DawProvider>
+          </ErrorBoundary>
+        </div>
+        <ToastList />
+      </QueryClientProvider>
     </>
   );
 };
