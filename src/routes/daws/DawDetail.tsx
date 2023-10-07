@@ -11,10 +11,14 @@ import {
 } from "../../features/daws/commentsApiService";
 import { Spinner } from "../../components/Spinner";
 import { DawComment } from "../../@types/dawComment";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { fetchDaws } from "../../features/daws/dawsSlice";
 
 export const DawDetail = () => {
-  const { dawId: dawId } = useParams<{ dawId: string }>();
-  const { daws, updateDaw } = useContext(DawContext) as DawContextType;
+  const dispatch = useAppDispatch();
+  const daws = useAppSelector((state: any) => state.daws.daws);
+  const { dawId: dawIdStr } = useParams<{ dawId: string }>();
+  const dawId = parseInt(dawIdStr, 10);
   const [comments, setComments] = useState<DawComment[]>([]);
   const [newComment, setNewComment] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -24,10 +28,14 @@ export const DawDetail = () => {
   if (!dawId) {
     return <div>Invalid Daw ID</div>;
   }
-  const daw = daws.find((daw) => daw.id === parseInt(dawId));
-  if (!daw) {
-    return <div>Daw not found</div>;
-  }
+
+  const daw = daws.find((d) => d.id === dawId);
+  useEffect(() => {
+    // If the daws aren't in the store yet, fetch them
+    if (!daw) {
+      dispatch(fetchDaws());
+    }
+  });
 
   useEffect(() => {
     const loadComments = async () => {
