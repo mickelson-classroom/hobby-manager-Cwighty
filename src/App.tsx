@@ -11,7 +11,7 @@ const App = () => {
     <>
       <Navbar />
       <div
-        className="container align-items-start"
+        className="container align-items-start d-block"
         style={{ marginBottom: "100px" }}
       >
         <ErrorBoundary>
@@ -20,7 +20,6 @@ const App = () => {
           </DawProvider>
         </ErrorBoundary>
       </div>
-      <SpinningCircle />
       <ToastList />
     </>
   );

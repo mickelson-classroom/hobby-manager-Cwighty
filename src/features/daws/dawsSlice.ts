@@ -2,9 +2,10 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Daw } from "../../@types/daw";
 
-const BASE_URL = "http://localhost:5000/api/store?key=daws";
+const BASE_URL = "/api/store?key=daws";
+// const BASE_URL = "http://localhost:5000/api/store?key=daws";
 
-interface DawsState {
+export interface DawsState {
   daws: Daw[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string;
@@ -17,7 +18,7 @@ const initialState: DawsState = {
 };
 
 export const fetchDaws = createAsyncThunk<Daw[], void>(
-  "daw/fetchDaw",
+  "daw/fetchDaws",
   async () => {
     const response = await axios.get<{ daws: Daw[] }>(BASE_URL);
     return response.data.daws;
@@ -25,9 +26,10 @@ export const fetchDaws = createAsyncThunk<Daw[], void>(
 );
 
 export const createDaw = createAsyncThunk<Daw, Daw>(
-  "daw/createDaw",
+  "daw/createDaws",
   async (newDaw: Daw) => {
     try {
+      newDaw.id = Date.now();
       const currentData = await axios.get<{ daws: Daw[] }>(BASE_URL);
       const updatedDaws = [...currentData.data.daws, newDaw];
       await axios.post(BASE_URL, { daws: updatedDaws });
@@ -39,7 +41,7 @@ export const createDaw = createAsyncThunk<Daw, Daw>(
         );
         const updatedDaws = [newDaw];
         await axios.post(BASE_URL, { daws: updatedDaws });
-        return newDaw; // Return the newDaw in case of a 404 error
+        return newDaw;
       } else {
         throw error;
       }
@@ -48,7 +50,7 @@ export const createDaw = createAsyncThunk<Daw, Daw>(
 );
 
 export const updateDaw = createAsyncThunk<Daw, Daw>(
-  "daw/updateDaw",
+  "daw/updateDaws",
   async (updatedDaw: Daw) => {
     const currentData = await axios.get<{ daws: Daw[] }>(BASE_URL);
     const updatedDaws = currentData.data.daws.map((daw) =>
@@ -61,7 +63,7 @@ export const updateDaw = createAsyncThunk<Daw, Daw>(
 );
 
 export const deleteDaw = createAsyncThunk<string | Daw, Daw>(
-  "daw/deleteDaw",
+  "daw/deleteDaws",
   async (dawToDelete: Daw) => {
     const currentData = await axios.get<{ daws: Daw[] }>(BASE_URL);
     const updatedDaws = currentData.data.daws.filter(

@@ -56,7 +56,7 @@ export const Navbar: React.FC = () => {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ml-auto">
               {tabs.map((tab, index) => (
-                <li className="nav-item">
+                <li key={index} className="nav-item">
                   <Link className="nav-link" to={tab.path}>
                     <FontAwesomeIcon size="lg" icon={tab.icon} />
                     {" " + tab.name}

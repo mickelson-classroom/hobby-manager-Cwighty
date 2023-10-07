@@ -5,7 +5,8 @@ import { Daw, DawContextType } from "../../@types/daw";
 import { DawContext } from "../../context/dawContext";
 import { DawValidationRules } from "./DawValidationRules";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { createDaw, fetchDaws } from "../../features/daws/dawsSlice";
+import { createDaw, deleteDaw, fetchDaws } from "../../features/daws/dawsSlice";
+import { Spinner } from "../../components/Spinner";
 
 export const DawsList = () => {
   const [hasError, setHasError] = useState(false);
@@ -21,6 +22,8 @@ export const DawsList = () => {
   });
   const dispatch = useAppDispatch();
   const daws = useAppSelector((state) => state.dawStore.daws);
+  const status = useAppSelector((state) => state.dawStore.status);
+
   useEffect(() => {
     if (hasError) {
       throw new Error("Error thrown from DawsList");
@@ -66,6 +69,7 @@ export const DawsList = () => {
   };
 
   const handleSave = (e: React.FormEvent, daw: Daw) => {
+    if (status === "loading") return;
     e.preventDefault();
     dispatch(createDaw(daw));
     nameTextControl.clear();
@@ -73,9 +77,11 @@ export const DawsList = () => {
     priceTextControl.clear();
   };
 
-  if (daws === undefined) {
-    return <div>Loading...</div>;
-  }
+  const handleDelete = (id: number) => {
+    if (status === "loading") return;
+    const daw = daws.find((d) => d.id === id);
+    daw && dispatch(deleteDaw(daw));
+  };
 
   return (
     <div>
@@ -84,16 +90,26 @@ export const DawsList = () => {
         Throw Exception
       </button>
       <hr />
+      {status === "loading" && <Spinner />}
 
       <ul className="list-group">
         {daws.map((daw) => (
-          <li key={daw.id} className="list-group-item">
+          <li
+            key={daw.id}
+            className="list-group-item d-flex justify-content-between align-items-center"
+          >
             <Link
               to={`/daw/${daw.id}`}
-              className="list-group-item-action fs-4 btn"
+              className="list-group-item-action fs-4 btn text-start"
             >
               {daw.name}
             </Link>
+            <button
+              onClick={() => handleDelete(daw.id)}
+              className="btn btn-danger"
+            >
+              <i className="bi bi-trash"></i>
+            </button>
           </li>
         ))}
       </ul>

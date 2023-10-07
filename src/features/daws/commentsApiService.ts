@@ -1,13 +1,12 @@
 import { DawComment } from "../../@types/dawComment";
 
 const API_URL = "/api/store";
-console.log(API_URL);
+// const API_URL = "http://localhost:5000/api/store";
 
 export const fetchCommentsForDaw = async (
   dawId: number
 ): Promise<DawComment[]> => {
   const response = await fetch(`${API_URL}?key=dawComments_${dawId}`);
-  console.log(response);
   if (response.status === 404) {
     await fetch(`${API_URL}?key=dawComments_${dawId}`, {
       method: "POST",
