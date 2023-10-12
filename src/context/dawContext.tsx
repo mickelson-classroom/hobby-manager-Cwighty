@@ -1,10 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 import { DawContextType, Daw } from "../@types/daw";
 import dawsData from "../assets/daws.json";
-import {
-  DawValidationRules,
-  validateField,
-} from "../routes/daws/DawValidationRules";
+import { DawValidationRules } from "../routes/daws/DawValidationRules";
+import { validateField } from "../routes/daws/constants";
 import React from "react";
 
 export const DawContext = createContext<DawContextType | null>(null);
