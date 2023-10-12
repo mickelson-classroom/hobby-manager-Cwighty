@@ -17,6 +17,9 @@ jobs:
         with:
           node-version: 18
 
+      - name: install dependencies
+        run: npm i
+
       - name: Run ESLint
         run: npx eslint --ext js,jsx,tsx,ts src
 
