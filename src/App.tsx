@@ -3,11 +3,27 @@ import { Navbar } from "./shared/navbar";
 import { ErrorBoundary } from "./components/ErrorBoundry";
 import { DawProvider } from "./context/dawContext";
 import { ToastList } from "./components/ToastList/ToastList";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryCache, QueryClient, QueryClientProvider } from "react-query";
 import { ToastProvider } from "./context/toastContext";
+import { Toaster, toast } from "react-hot-toast";
 
 const App = () => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    queryCache: new QueryCache({
+      onError: (error: unknown) => {
+        if (error instanceof Error) {
+          toast.error("There was an error with your request: " + error.message);
+        } else {
+          toast.error("There was an error with your request");
+        }
+      },
+    }),
+    defaultOptions: {
+      queries: {
+        useErrorBoundary: false,
+      },
+    },
+  });
   return (
     <>
       <ToastProvider>
@@ -24,6 +40,14 @@ const App = () => {
             </ErrorBoundary>
           </div>
           <ToastList />
+          <Toaster
+            toastOptions={{
+              style: {
+                background: "#333",
+                color: "#fff",
+              },
+            }}
+          />
         </QueryClientProvider>
       </ToastProvider>
     </>
