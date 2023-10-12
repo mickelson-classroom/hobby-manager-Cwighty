@@ -21,7 +21,7 @@ jobs:
         run: npm i
 
       - name: Run ESLint
-        run: npx eslint --ext js,jsx,tsx,ts src
+        run: npx eslint --ext js,jsx,tsx,ts src --max-warnings 0
 
   deploy-application:
     needs: lint
