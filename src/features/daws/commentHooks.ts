@@ -15,15 +15,11 @@ const commentKeys = {
 const getCommentsUrl = (dawId: number) => `${API_URL}?key=dawComments_${dawId}`;
 
 const fetchComments = async (dawId: number): Promise<DawComment[]> => {
-  try {
-    const response = await axios.get(getCommentsUrl(dawId));
-    if (response.status === 404) {
-      return [];
-    }
-    return response.data || [];
-  } catch (error: any) {
-    throw error;
+  const response = await axios.get(getCommentsUrl(dawId));
+  if (response.status === 404) {
+    return [];
   }
+  return response.data || [];
 };
 
 export const useGetCommentsForDawQuery = (dawId: number) => {
@@ -39,13 +35,9 @@ const postComments = async (params: {
   dawId: number;
   comments: DawComment[];
 }): Promise<void> => {
-  try {
-    await axios.post(getCommentsUrl(params.dawId), params.comments, {
-      headers: { "Content-Type": "application/json" },
-    });
-  } catch (error: any) {
-    throw error;
-  }
+  await axios.post(getCommentsUrl(params.dawId), params.comments, {
+    headers: { "Content-Type": "application/json" },
+  });
 };
 
 export const useAddCommentForDawMutation = () => {

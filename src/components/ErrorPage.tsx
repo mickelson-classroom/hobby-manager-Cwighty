@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { ToastContextType } from "../@types/toast";
 import { ToastContext } from "../context/toastContext";
 
@@ -11,7 +11,7 @@ export const ErrorPage = ({ error }: { error: Error }) => {
       message: error.message,
       type: "danger",
     });
-  }, [error.message]);
+  }, [addToast, error.message]);
   return (
     <div className="d-flex flex-column justify-content-center align-items-center vh-100">
       <h1>Something went wrong. So soory bout that!</h1>

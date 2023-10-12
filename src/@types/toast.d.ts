@@ -1,3 +1,6 @@
+import { Toast } from "../components/Toast";
+import { ToastItem } from "../components/Toast/ToastItem";
+
 export type ToastItemProps = {
   id: number;
   message: string;
@@ -8,8 +11,8 @@ export type ToastItemProps = {
 
 export type ToastContextType = {
   toasts: ToastItem[];
-  addToast: (toast: Toast) => void;
-  removeToast: (id: number) => void;
+  addToast: (_toast: Toast) => void;
+  removeToast: (_id: number) => void;
   removeAllToasts: () => void;
   add50Toasts: () => void;
   dissmissedToasts: number[];

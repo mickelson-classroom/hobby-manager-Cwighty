@@ -1,7 +1,7 @@
+/* eslint-disable no-undef */
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function (app) {
-    console.log('Proxy middleware is initializing...'); 
     app.use(
         '/api',
         createProxyMiddleware({
@@ -9,5 +9,4 @@ module.exports = function (app) {
             changeOrigin: true,
         })
     );
-    console.log('Proxy middleware is ready.'); 
 };

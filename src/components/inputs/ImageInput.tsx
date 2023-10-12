@@ -1,11 +1,11 @@
-import { useState } from "react";
+import React from "react";
 
 export const ImageInput = ({
   base64,
   setBase64,
 }: {
   base64: string | null;
-  setBase64: (base64: string | null) => void;
+  setBase64: (_base64: string | null) => void;
 }) => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];

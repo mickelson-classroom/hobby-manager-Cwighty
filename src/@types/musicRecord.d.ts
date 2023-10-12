@@ -9,7 +9,7 @@ export interface MusicRecord {
 
 export type RecordContextType = {
   records: MusicRecord[];
-  addRecord: (record: MusicRecord) => void;
-  updateRecord: (record: MusicRecord) => void;
-  deleteRecord: (id: number) => void;
+  addRecord: (_record: MusicRecord) => void;
+  updateRecord: (_record: MusicRecord) => void;
+  deleteRecord: (_id: number) => void;
 };

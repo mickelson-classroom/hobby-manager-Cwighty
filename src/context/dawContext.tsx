@@ -5,38 +5,40 @@ import {
   DawValidationRules,
   validateField,
 } from "../routes/daws/DawValidationRules";
+import React from "react";
+
 export const DawContext = createContext<DawContextType | null>(null);
 
-const dawsKey = "storedDaws"
+const dawsKey = "storedDaws";
 const saveToLocalStorage = (daws: Daw[]) => {
-  const stringified = JSON.stringify(daws)
-  localStorage.setItem(dawsKey, stringified)
-}
+  const stringified = JSON.stringify(daws);
+  localStorage.setItem(dawsKey, stringified);
+};
 
-const readFromLocalStorage = () : Daw[] => {
-  const stringified = localStorage.getItem(dawsKey)
+const readFromLocalStorage = (): Daw[] => {
+  const stringified = localStorage.getItem(dawsKey);
   if (stringified === null) {
-    return dawsData
+    return dawsData;
   }
-  return JSON.parse(stringified!)
-}
+  return JSON.parse(stringified!);
+};
 
 export const DawProvider = ({ children }: { children: React.ReactNode }) => {
   const [daws, setDaws] = useState<Daw[]>(readFromLocalStorage());
 
-  useEffect (() => {
-    const dawsFromStorage = readFromLocalStorage()
-    setDaws(dawsFromStorage)
-  }, [])
+  useEffect(() => {
+    const dawsFromStorage = readFromLocalStorage();
+    setDaws(dawsFromStorage);
+  }, []);
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      saveToLocalStorage(daws)
-    }, 1000)
+      saveToLocalStorage(daws);
+    }, 1000);
     return () => {
-      clearTimeout(handler)
-    }
-  }, [daws])
+      clearTimeout(handler);
+    };
+  }, [daws]);
 
   const addDaw = (newDaw: Daw) => {
     const id = Math.max(...daws.map((daw) => daw.id)) + 1;

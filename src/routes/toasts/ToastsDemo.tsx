@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { ToastContext } from "../../context/toastContext";
 import { ToastContextType } from "../../@types/toast";
 

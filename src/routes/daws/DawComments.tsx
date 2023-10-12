@@ -16,7 +16,6 @@ export const DawComments: React.FC<DawCommentProps> = ({ dawId }) => {
     data: comments = [],
     isLoading: isLoading,
     isError: isError,
-    error: error,
     refetch,
   } = useGetCommentsForDawQuery(dawId);
 

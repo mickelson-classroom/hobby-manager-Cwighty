@@ -11,8 +11,6 @@ export interface Daw {
 
 export type DawContextType = {
   daws: Daw[];
-  addDaw: (daw: Daw) => void;
-  updateDaw: (daw: Daw) => void;
+  addDaw: (_daw: Daw) => void;
+  updateDaw: (_daw: Daw) => void;
 };
-
-

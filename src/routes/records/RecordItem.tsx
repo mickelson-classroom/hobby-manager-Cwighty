@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MusicRecord, RecordContextType } from "../../@types/musicRecord";
+import { MusicRecord, } from "../../@types/musicRecord";
 import { TextInput, useTextInput } from "../../components/inputs/TextInput";
 import { useAppDispatch } from "../../app/hooks";
 import { genreOptions, updateRecord } from "../../features/records/recordSlice";

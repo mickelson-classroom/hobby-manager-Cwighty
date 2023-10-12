@@ -3,7 +3,7 @@ import { ToastContextType } from "../../@types/toast";
 import { ToastItem } from "../Toast/ToastItem";
 import { ToastContext } from "../../context/toastContext";
 
-export const ToastList: React.FC = () => {
+export const ToastList = () => {
   const { toasts, removeToast, dissmissedToasts } = useContext(
     ToastContext
   ) as ToastContextType;

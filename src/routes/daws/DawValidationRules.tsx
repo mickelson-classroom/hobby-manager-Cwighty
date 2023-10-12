@@ -1,21 +1,22 @@
 import { Daw } from "../../@types/daw";
 
 export const DawValidationRules: {
-  [key in keyof Daw]: ((value: any) => string | null)[];
+  // eslint-disable-next-line no-unused-vars
+  [_ in keyof Daw]: ((_value: any) => string | null)[];
 } = {
   id: [(value) => (value ? null : "ID is required")],
   name: [(value) => (value ? null : "Name is required")],
   description: [(value) => (value ? null : "Description is required")],
-  website: [(value) => null ],
-  image: [(value) =>  null ],
-  features: [(value) => null],
+  website: [(_value) => null],
+  image: [(_value) => null],
+  features: [(_value) => null],
   price: [(value) => (value ? null : "Price is required")],
-  famousSongs: [(value) => null ],
+  famousSongs: [(_value) => null],
 };
 
 export const validateField = <T,>(
   value: T,
-  validators: ((value: T) => string | null)[]
+  validators: ((_value: T) => string | null)[]
 ): string[] => {
   const errors: string[] = [];
   for (const validator of validators) {

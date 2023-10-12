@@ -13,13 +13,13 @@ export const DawDetail = () => {
   const { dawId: dawIdStr } = useParams<{ dawId: string }>();
   const dawId = parseInt(dawIdStr ?? "", 10);
 
-  if (!dawId) {
-    return <div>Invalid Daw ID</div>;
-  }
-
   useEffect(() => {
     dispatch(fetchDaws());
   }, [dispatch]);
+
+  if (!dawId) {
+    return <div>Invalid Daw ID</div>;
+  }
 
   if (status === "loading") {
     return <Spinner />;
@@ -29,7 +29,6 @@ export const DawDetail = () => {
     return <div>Error loading daws</div>;
   }
 
-  console.log(daws);
   const daw = daws.find((d) => d.id === dawId);
 
   if (!daw) {

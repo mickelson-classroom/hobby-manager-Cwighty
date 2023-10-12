@@ -2,13 +2,14 @@ import "./ToastItem.scss";
 import { useEffect, useState } from "react";
 import { ToastItemProps } from "../../@types/toast";
 
-export const ToastItem: React.FC<ToastItemProps> = ({
+export const ToastItem = ({
   message,
   type,
   dismiss,
   dismissed,
-}) => {
-  const iconMap: { [key in ToastItemProps["type"]]: string } = {
+}: ToastItemProps) => {
+  // eslint-disable-next-line no-unused-vars
+  const iconMap: { [_ in ToastItemProps["type"]]: string } = {
     success: "bi-check-circle-fill",
     danger: "bi-x-circle-fill",
     warning: "bi-exclamation-circle-fill",
@@ -23,7 +24,6 @@ export const ToastItem: React.FC<ToastItemProps> = ({
     }, 50);
   }, []);
 
-  console.log("toastItem", dismissed);
   return (
     <div
       className={`card border-${type} my-2 shadow-lg toast-item ${

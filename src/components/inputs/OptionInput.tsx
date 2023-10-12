@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { useEffect } from "react";
 
 export interface Option {
   label: string;
@@ -9,19 +9,19 @@ interface OptionControlProps {
   initialLabel: string;
   initialOptions: Option[];
   initialValue: string;
-  onChange: (value: string) => void;
+  onChange: (_value: string) => void;
   initialType: "select" | "radio";
 }
 
 interface OptionControl {
   label: string;
-  setLabel: (label: string) => void;
+  setLabel: (_label: string) => void;
   options: Option[];
-  setOptions: (options: Option[]) => void;
+  setOptions: (_options: Option[]) => void;
   value: string;
-  setValue: (value: string) => void;
+  setValue: (_value: string) => void;
   type: "select" | "radio";
-  setType: (type: "select" | "radio") => void;
+  setType: (_type: "select" | "radio") => void;
 }
 
 export const useOptionInput = ({

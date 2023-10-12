@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MusicRecord, RecordContextType } from "../../@types/musicRecord";
+import { MusicRecord } from "../../@types/musicRecord";
 import { RecordItem } from "./RecordItem";
 import { TextInput, useTextInput } from "../../components/inputs/TextInput";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
@@ -38,7 +38,6 @@ export const RecordLibrary = () => {
       });
     },
   });
-  console.log(titleTextControl);
 
   const artistTextControl = useTextInput({
     initialValue: newRecord.artist,
@@ -86,7 +85,7 @@ export const RecordLibrary = () => {
       <div className="row mb-5">
         <div className="col-12 col-lg-6">
           {records.map((record) => (
-            <div className="mb-3">
+            <div key={record.id} className="mb-3">
               <RecordItem
                 key={record.id}
                 record={record}

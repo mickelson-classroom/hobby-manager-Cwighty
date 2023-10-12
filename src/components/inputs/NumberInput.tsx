@@ -3,8 +3,8 @@ import React, { useState, ChangeEvent, FC, useEffect } from "react";
 interface NumberInputProps {
   label: string;
   value?: number;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  rules?: ((value: number) => string | null)[];
+  onChange: (_e: React.ChangeEvent<HTMLInputElement>) => void;
+  rules?: ((_value: number) => string | null)[];
 }
 
 export const NumberInput: FC<NumberInputProps> = ({

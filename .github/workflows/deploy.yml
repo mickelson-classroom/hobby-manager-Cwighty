@@ -1,10 +1,26 @@
-name: deploy my site 
-env: 
+name: deploy my site
+
+env:
   DUCKDNSTOKEN: ${{ secrets.DUCKDNSTOKEN }}
+
 on: [push, workflow_dispatch]
+
 jobs:
+  lint:
+    runs-on: [self-hosted]
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run ESLint
+        run: npx eslint --ext js,jsx,tsx,ts src
+
   deploy-application:
-    runs-on: [ self-hosted ]
+    needs: lint
+    runs-on: [self-hosted]
     steps:
       - name: checkout repo
         uses: actions/checkout@v2

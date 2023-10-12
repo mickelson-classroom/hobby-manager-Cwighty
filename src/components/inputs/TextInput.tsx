@@ -1,20 +1,20 @@
-import React, { useState, ChangeEvent, FC, useEffect } from "react";
+import { useState, ChangeEvent, FC, useEffect } from "react";
 
 interface TextInputProps {
   label: string;
   control: TextInputControl;
-  rules?: ((value: string) => string | null)[];
+  rules?: ((_value: string) => string | null)[];
   showGoodValidation?: boolean;
 }
 
 export interface TextInputControlProps {
   initialValue: string;
-  onChange: (value: string) => void;
+  onChange: (_value: string) => void;
 }
 
 export interface TextInputControl {
   value: string;
-  setValue: (value: string) => void;
+  setValue: (_value: string) => void;
   clear: () => void;
 }
 
