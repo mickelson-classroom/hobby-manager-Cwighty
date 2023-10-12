@@ -18,25 +18,6 @@ export interface TextInputControl {
   clear: () => void;
 }
 
-export const useTextInput = ({
-  initialValue,
-  onChange,
-}: TextInputControlProps): TextInputControl => {
-  const [value, setValue] = useState(initialValue);
-
-  useEffect(() => {
-    onChange(value);
-  }, [value]);
-
-  const output: TextInputControl = {
-    value,
-    setValue,
-    clear: () => setValue(""),
-  };
-
-  return output;
-};
-
 export const TextInput: FC<TextInputProps> = ({
   label,
   control,
@@ -54,7 +35,7 @@ export const TextInput: FC<TextInputProps> = ({
     } else {
       setValidationError(null);
     }
-  });
+  }, [rules, control.value]);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;

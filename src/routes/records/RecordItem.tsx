@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { MusicRecord, } from "../../@types/musicRecord";
-import { TextInput, useTextInput } from "../../components/inputs/TextInput";
+import { MusicRecord } from "../../@types/musicRecord";
+import { TextInput } from "../../components/inputs/TextInput";
+import { useTextInput } from "../../components/inputs/useTextInput";
 import { useAppDispatch } from "../../app/hooks";
 import { genreOptions, updateRecord } from "../../features/records/recordSlice";
 import { ImageInput } from "../../components/inputs/ImageInput";
-import {
-  OptionInput,
-  useOptionInput,
-} from "../../components/inputs/OptionInput";
+import { OptionInput } from "../../components/inputs/OptionInput";
+import { useOptionInput } from "../../components/inputs/useOptionInput";
 
 export const RecordItem = ({
   record,

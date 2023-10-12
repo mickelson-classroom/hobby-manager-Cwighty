@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 export interface Option {
   label: string;
   value: string;
 }
 
-interface OptionControlProps {
+export interface OptionControlProps {
   initialLabel: string;
   initialOptions: Option[];
   initialValue: string;
@@ -13,7 +13,7 @@ interface OptionControlProps {
   initialType: "select" | "radio";
 }
 
-interface OptionControl {
+export interface OptionControl {
   label: string;
   setLabel: (_label: string) => void;
   options: Option[];
@@ -23,36 +23,6 @@ interface OptionControl {
   type: "select" | "radio";
   setType: (_type: "select" | "radio") => void;
 }
-
-export const useOptionInput = ({
-  initialLabel,
-  initialOptions,
-  initialValue,
-  onChange,
-  initialType,
-}: OptionControlProps) => {
-  const [value, setValue] = React.useState(initialValue);
-  const [label, setLabel] = React.useState(initialLabel);
-  const [options, setOptions] = React.useState(initialOptions);
-  const [type, setType] = React.useState(initialType);
-
-  useEffect(() => {
-    onChange(value);
-  }, [value]);
-
-  const output: OptionControl = {
-    label,
-    setLabel,
-    options,
-    setOptions,
-    value,
-    setValue,
-    type,
-    setType,
-  };
-
-  return output;
-};
 
 export const OptionInput = ({ control }: { control: OptionControl }) => {
   const handleInputChange = (

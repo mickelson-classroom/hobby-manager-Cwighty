@@ -25,7 +25,7 @@ export const NumberInput: FC<NumberInputProps> = ({
     } else {
       setValidationError(null);
     }
-  });
+  }, [rules, value]);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newValue = parseFloat(event.target.value);

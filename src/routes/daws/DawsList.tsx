@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { TextInput, useTextInput } from "../../components/inputs/TextInput";
+import { TextInput } from "../../components/inputs/TextInput";
+import { useTextInput } from "../../components/inputs/useTextInput";
 import { Daw } from "../../@types/daw";
 import { DawValidationRules } from "./DawValidationRules";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
